@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.sidpatchy.javasnipe'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation "org.mockito:mockito-core:3.+"
+
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.github.Sidpatchy:Robin:2.0.2'
+
+    implementation 'org.apache.logging.log4j:log4j-api:2.22.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
+}
+
+test {
+    useJUnitPlatform()
+}

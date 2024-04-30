@@ -1,0 +1,20 @@
+package com.sidpatchy.javasnipe;
+
+public class SnipeAPIBuilder {
+    private String token;
+    private String apiEndpoint;
+
+    public SnipeAPIBuilder setToken(String token) {
+        this.token = token;
+        return this;
+    }
+
+    public SnipeAPIBuilder setApiURL(String apiEndpoint) {
+        this.apiEndpoint = apiEndpoint;
+        return this;
+    }
+
+    public SnipeAPI build() {
+        return new SnipeAPI(this.token, apiEndpoint);
+    }
+}

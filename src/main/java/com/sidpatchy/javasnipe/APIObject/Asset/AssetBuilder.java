@@ -57,7 +57,7 @@ public class AssetBuilder {
         return this;
     }
 
-    public AssetBuilder setEol(String eol) {
+    public AssetBuilder setEol(Date eol) {
         asset.setEol(eol);
         return this;
     }

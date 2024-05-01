@@ -147,15 +147,17 @@ public class SnipeAPI {
                 URL url = new URL(apiEndpoint + "/hardware");
                 HttpURLConnection connection = setupHttpURLConnection(url, "POST");
 
-                // Manually create JSON Object
-                JsonObject jsonAsset = new JsonObject();
+                // Create a JsonObject from the asset using GSON
+                JsonObject jsonAsset = gson.toJsonTree(asset).getAsJsonObject();
+
+                // Ensure critical fields are explicitly set
                 jsonAsset.addProperty("asset_tag", asset.getAssetTag());
-                jsonAsset.addProperty("model_id", asset.getModel().getId());  // Assuming getModel() returns a Model object with an ID
-                jsonAsset.addProperty("status_id", asset.getStatusLabel().getId());  // Assuming getStatusLabel() returns a StatusLabel object with an ID
+                jsonAsset.addProperty("model_id", asset.getModel().getId());
+                jsonAsset.addProperty("status_id", asset.getStatusLabel().getId());
 
                 // Convert JsonObject to JSON String
                 String jsonInput = gson.toJson(jsonAsset);
-                logger.info("JSON Payload: " + jsonInput);  // Log the JSON payload to inspect it
+                logger.info("JSON Payload: " + jsonInput);
 
                 try (OutputStream os = connection.getOutputStream()) {
                     byte[] input = jsonInput.getBytes(StandardCharsets.UTF_8);
@@ -180,4 +182,5 @@ public class SnipeAPI {
             }
         }, Executors.newCachedThreadPool());
     }
+
 }

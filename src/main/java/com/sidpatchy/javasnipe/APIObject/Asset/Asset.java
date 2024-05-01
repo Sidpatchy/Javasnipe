@@ -24,7 +24,7 @@ public class Asset {
     @SerializedName("model_number")
     private String modelNumber;
     @SerializedName("eol")
-    private String eol;
+    private Date eol;
     private Date assetEolDate;
     @SerializedName("status_label")
     private StatusLabel statusLabel;
@@ -231,7 +231,7 @@ public class Asset {
      * @return an {@link Optional} containing the end-of-line character(s) as a String,
      *         or an {@link Optional#empty()} if no end-of-line character(s) are defined.
      */
-    public Optional<String> getEol() {
+    public Optional<Date> getEol() {
         return Optional.ofNullable(eol);
     }
 
@@ -240,7 +240,7 @@ public class Asset {
      *
      * @param eol The EOL value to set for the Asset.
      */
-    public void setEol(String eol) {
+    public void setEol(Date eol) {
         this.eol = eol;
     }
 

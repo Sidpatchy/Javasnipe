@@ -1,50 +1,13 @@
 package com.sidpatchy.javasnipe.APIObject.Asset;
 
 import com.google.gson.annotations.SerializedName;
+import com.sidpatchy.javasnipe.APIObject.Generic.GenericField;
 
-public class StatusLabel {
-    private int id;
-    private String name;
+public class StatusLabel extends GenericField {
     @SerializedName("status_type")
     private String statusType;
     @SerializedName("status_meta")
     private String statusMeta;
-
-    /**
-     * Gets the ID of the StatusLabel object.
-     *
-     * @return The ID of the StatusLabel object.
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Sets the ID of the StatusLabel.
-     *
-     * @param id the ID of the StatusLabel
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Returns the name of the StatusLabel.
-     *
-     * @return the name of the StatusLabel.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Set the name of the status label.
-     *
-     * @param name the new name for the status label
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
 
     /**
      * Get the status type of the StatusLabel object.

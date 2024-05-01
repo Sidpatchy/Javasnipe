@@ -7,6 +7,8 @@ import com.sidpatchy.javasnipe.APIObject.Generic.Date;
 import com.sidpatchy.javasnipe.APIObject.Generic.GenericField;
 import com.sidpatchy.javasnipe.APIObject.Generic.Location;
 
+import java.util.Optional;
+
 /**
  * Represents an asset.
  */
@@ -71,18 +73,18 @@ public class Asset {
     private boolean userCanCheckout;
     @SerializedName("book_value")
     private String bookValue;
-    @SerializedName("custom_fields")
+    @SerializedName("custom_fields") // todo known to be broken
     private CustomFields customFields;
     @SerializedName("available_actions")
     private AvailableActions availableActions;
 
     /**
-     * Retrieves the ID of the Asset.
+     * Retrieves the ID of this object.
      *
-     * @return The ID of the Asset.
+     * @return an {@link Optional} containing the ID as an Integer if present, or an {@link Optional#empty()} if not available.
      */
-    public int getId() {
-        return id;
+    public Optional<Integer> getId() {
+        return Optional.of(id);
     }
 
     /**
@@ -95,12 +97,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the name of the Asset.
+     * Retrieves the name of the object.
      *
-     * @return The name of the Asset.
+     * @return an {@link Optional} containing the name of the object, or an {@link Optional#empty()} if the name is not set
      */
-    public String getName() {
-        return name;
+    public Optional<String> getName() {
+        return Optional.ofNullable(name);
     }
 
     /**
@@ -131,12 +133,13 @@ public class Asset {
     }
 
     /**
-     * Retrieves the serial number of the asset.
+     * Retrieves the serial number.
      *
-     * @return The serial number of the asset.
+     * @return an {@link Optional} object containing the serial number,
+     *         or an {@link Optional#empty()} if the serial number is null
      */
-    public String getSerial() {
-        return serial;
+    public Optional<String> getSerial() {
+        return Optional.ofNullable(serial);
     }
 
     /**
@@ -167,12 +170,13 @@ public class Asset {
     }
 
     /**
-     * Retrieves the value of the byod field.
+     * Checks if the device supports BYOD (Bring Your Own Device).
      *
-     * @return true if the asset supports Bring Your Own Device (BYOD), false otherwise
+     * @return an {@link Optional<Boolean>} value indicating if the device supports BYOD. The {@link Optional} may contain a boolean value if it is available,
+     *         or it may be empty if the BYOD status cannot be determined.
      */
-    public boolean isByod() {
-        return byod;
+    public Optional<Boolean> isByod() {
+        return Optional.of(byod);
     }
 
     /**
@@ -185,12 +189,13 @@ public class Asset {
     }
 
     /**
-     * Checks whether the asset is requestable or not.
+     * Determines whether the request is requestable.
      *
-     * @return true if the asset is requestable, false otherwise.
+     * @return an {@link Optional<Boolean>} containing the value indicating whether the request is requestable.
+     * If the value is present, it is set to {@code true}, otherwise {@code false}.
      */
-    public boolean isRequestable() {
-        return requestable;
+    public Optional<Boolean> isRequestable() {
+        return Optional.of(requestable);
     }
 
     /**
@@ -203,12 +208,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the model number of the Asset.
+     * Retrieves the model number of the object.
      *
-     * @return The model number of the Asset.
+     * @return an {@link Optional} object containing the model number if it is present, otherwise an {@link Optional#empty()}.
      */
-    public String getModelNumber() {
-        return modelNumber;
+    public Optional<String> getModelNumber() {
+        return Optional.ofNullable(modelNumber);
     }
 
     /**
@@ -221,12 +226,13 @@ public class Asset {
     }
 
     /**
-     * Retrieves the end of life (EOL) information for the asset.
+     * Retrieves the end-of-line character(s) used in the current context.
      *
-     * @return The end of life (EOL) information as a string.
+     * @return an {@link Optional} containing the end-of-line character(s) as a String,
+     *         or an {@link Optional#empty()} if no end-of-line character(s) are defined.
      */
-    public String getEol() {
-        return eol;
+    public Optional<String> getEol() {
+        return Optional.ofNullable(eol);
     }
 
     /**
@@ -239,12 +245,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the End-of-Life (EOL) date of the asset.
+     * Retrieves the end-of-life date of the asset.
      *
-     * @return The Date object representing the EOL date of the asset.
+     * @return An {@link Optional} object containing the end-of-life date of the asset, or an {@link Optional#empty()} if the end-of-life date is not set.
      */
-    public Date getAssetEolDate() {
-        return assetEolDate;
+    public Optional<Date> getAssetEolDate() {
+        return Optional.ofNullable(assetEolDate);
     }
 
     /**
@@ -275,12 +281,13 @@ public class Asset {
     }
 
     /**
-     * Retrieves the category of the asset.
+     * Returns the category of the GenericField.
      *
-     * @return The Category object representing the category of the asset.
+     * @return {@link Optional} containing the category of the GenericField,
+     *         or an {@link Optional#empty()} if the category is null.
      */
-    public GenericField getCategory() {
-        return category;
+    public Optional<GenericField> getCategory() {
+        return Optional.ofNullable(category);
     }
 
     /**
@@ -293,12 +300,12 @@ public class Asset {
     }
 
     /**
-     * This method returns the manufacturer of a product.
+     * Returns the manufacturer of the object.
      *
-     * @return The manufacturer of the product.
+     * @return an {@link Optional} containing the manufacturer, or an {@link Optional#empty()} if the manufacturer is null
      */
-    public GenericField getManufacturer() {
-        return manufacturer;
+    public Optional<GenericField> getManufacturer() {
+        return Optional.ofNullable(manufacturer);
     }
 
     /**
@@ -311,12 +318,12 @@ public class Asset {
     }
 
     /**
-     * Returns the supplier associated with this object.
+     * Returns the supplier of the field.
      *
-     * @return the supplier
+     * @return an {@link Optional} containing the supplier of the field, or an {@link Optional#empty()} if the supplier is null.
      */
-    public GenericField getSupplier() {
-        return supplier;
+    public Optional<GenericField> getSupplier() {
+        return Optional.ofNullable(supplier);
     }
 
     /**
@@ -329,12 +336,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the notes associated with the object.
+     * Retrieves the notes associated with an object.
      *
-     * @return The notes as a string.
+     * @return an {@link Optional} containing the notes if present, otherwise an {@link Optional#empty()}.
      */
-    public String getNotes() {
-        return notes;
+    public Optional<String> getNotes() {
+        return Optional.ofNullable(notes);
     }
 
     /**
@@ -349,10 +356,10 @@ public class Asset {
     /**
      * Returns the order number associated with this object.
      *
-     * @return the order number
+     * @return An {@link  Optional} object containing the order number, or an {@link Optional#empty()} if no order number has been set.
      */
-    public String getOrderNumber() {
-        return orderNumber;
+    public Optional<String> getOrderNumber() {
+        return Optional.ofNullable(orderNumber);
     }
 
     /**
@@ -365,12 +372,13 @@ public class Asset {
     }
 
     /**
-     * Retrieves the Company object associated with this method.
+     * Retrieves the company associated with this object.
      *
-     * @return the Company object
+     * @return an {@link Optional} containing the company, if available.
+     *         If no company is associated, an {@link Optional#empty()} is returned.
      */
-    public Company getCompany() {
-        return company;
+    public Optional<Company> getCompany() {
+        return Optional.ofNullable(company);
     }
 
     /**
@@ -383,12 +391,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the location.
+     * Retrieves the location, if available.
      *
-     * @return the location object.
+     * @return an {@link Optional} containing the location, or {@link Optional#empty()} if no location is available.
      */
-    public Location getLocation() {
-        return location;
+    public Optional<Location> getLocation() {
+        return Optional.ofNullable(location);
     }
 
     /**
@@ -401,12 +409,12 @@ public class Asset {
     }
 
     /**
-     * Returns the RTD (Real-Time Data) location.
+     * Retrieves the real-time data (RTD) location.
      *
-     * @return the RTD location as a Location object
+     * @return an {@link Optional} object that contains the RTD location, or {@link Optional#empty()} if the RTD location is null
      */
-    public Location getRtdLocation() {
-        return rtdLocation;
+    public Optional<Location> getRtdLocation() {
+        return Optional.ofNullable(rtdLocation);
     }
 
     /**
@@ -419,12 +427,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the image associated with this object.
+     * Retrieves the image associated with this object, if any.
      *
-     * @return The image.
+     * @return an {@link Optional} object containing the image string, if it exists; otherwise an {@link Optional#empty()}
      */
-    public String getImage() {
-        return image;
+    public Optional<String> getImage() {
+        return Optional.ofNullable(image);
     }
 
     /**
@@ -437,12 +445,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the QR code.
+     * Retrieve the QR code associated with this object.
      *
-     * @return the QR code as a string
+     * @return An {@link Optional} that may contain the QR code as a String if available, or an {@link Optional#empty()} if the QR code is null.
      */
-    public String getQr() {
-        return qr;
+    public Optional<String> getQr() {
+        return Optional.ofNullable(qr);
     }
 
     /**
@@ -455,12 +463,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the alternative barcode associated with this object.
+     * Retrieves the alternative barcode associated with the object, if available.
      *
-     * @return The alternative barcode value.
+     * @return an {@link Optional} containing the alternative barcode, or an {@link Optional#empty()} if not available
      */
-    public String getAltBarcode() {
-        return altBarcode;
+    public Optional<String> getAltBarcode() {
+        return Optional.ofNullable(altBarcode);
     }
 
     /**
@@ -473,12 +481,12 @@ public class Asset {
     }
 
     /**
-     * Returns the person assigned to this object.
+     * Retrieves the assignedTo field.
      *
-     * @return the person object representing the assigned person
+     * @return an {@link Optional} object containing the assignedTo field, or an {@link Optional#empty()} if assignedTo is null
      */
-    public GenericField getAssignedTo() {
-        return assignedTo;
+    public Optional<GenericField> getAssignedTo() {
+        return Optional.ofNullable(assignedTo);
     }
 
     /**
@@ -491,12 +499,13 @@ public class Asset {
     }
 
     /**
-     * Retrieves the number of warranty months for this product.
+     * Retrieves the warranty months for a product.
      *
-     * @return The number of warranty months as an Integer.
+     * @return An {@link Optional} value containing the number of warranty months. If the warranty months are not available,
+     *         an {@link Optional#empty()} is returned.
      */
-    public Integer getWarrantyMonths() {
-        return warrantyMonths;
+    public Optional<Integer> getWarrantyMonths() {
+        return Optional.of(warrantyMonths);
     }
 
     /**
@@ -509,12 +518,12 @@ public class Asset {
     }
 
     /**
-     * Returns the warranty expiration date.
+     * Retrieves the warranty expiration date, if available.
      *
-     * @return the warranty expiration date as a string
+     * @return an {@link Optional} containing the warranty expiration date, or an {@link Optional#empty()} if no expiration date is set
      */
-    public String getWarrantyExpires() {
-        return warrantyExpires;
+    public Optional<String> getWarrantyExpires() {
+        return Optional.ofNullable(warrantyExpires);
     }
 
     /**
@@ -527,12 +536,13 @@ public class Asset {
     }
 
     /**
-     * Returns the timestamp representing the creation time of the object.
+     * Returns the creation date of the object, if available.
      *
-     * @return The timestamp representing the creation time of the object.
+     * @return an {@link Optional} object containing the creation date,
+     *         or an {@link Optional#empty()} if the creation date is not set.
      */
-    public Date getCreatedAt() {
-        return createdAt;
+    public Optional<Date> getCreatedAt() {
+        return Optional.ofNullable(createdAt);
     }
 
     /**
@@ -545,12 +555,12 @@ public class Asset {
     }
 
     /**
-     * Returns the timestamp of when the object was last updated.
+     * Returns the optional date value representing the last updated timestamp.
      *
-     * @return The timestamp of when the object was last updated.
+     * @return the {@link Optional} Date value of the last updated timestamp, or an {@link Optional#empty()} if no timestamp is set
      */
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public Optional<Date> getUpdatedAt() {
+        return Optional.ofNullable(updatedAt);
     }
 
     /**
@@ -563,12 +573,13 @@ public class Asset {
     }
 
     /**
-     * Returns the last audit date.
+     * Retrieves the last audit date.
      *
-     * @return the last audit date
+     * @return {@link Optional} object representing the last audit date,
+     *         or an {@link Optional#empty()} if the last audit date is null.
      */
-    public Date getLastAuditDate() {
-        return lastAuditDate;
+    public Optional<Date> getLastAuditDate() {
+        return Optional.ofNullable(lastAuditDate);
     }
 
     /**
@@ -583,10 +594,10 @@ public class Asset {
     /**
      * Retrieves the next audit date.
      *
-     * @return the next audit date as a Date object
+     * @return an {@link Optional} object containing the next audit date, if it exists; otherwise an {@link Optional#empty()}.
      */
-    public Date getNextAuditDate() {
-        return nextAuditDate;
+    public Optional<Date> getNextAuditDate() {
+        return Optional.ofNullable(nextAuditDate);
     }
 
     /**
@@ -603,8 +614,8 @@ public class Asset {
      *
      * @return The deletedAt value.
      */
-    public String getDeletedAt() {
-        return deletedAt;
+    public Optional<String> getDeletedAt() {
+        return Optional.ofNullable(deletedAt);
     }
 
     /**
@@ -621,8 +632,8 @@ public class Asset {
      *
      * @return the purchase date of the product.
      */
-    public Date getPurchaseDate() {
-        return purchaseDate;
+    public Optional<Date> getPurchaseDate() {
+        return Optional.ofNullable(purchaseDate);
     }
 
     /**
@@ -635,12 +646,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the age of an object.
+     * Returns the age of a person as an optional string.
      *
-     * @return The age of the object as a String.
+     * @return an {@link Optional} object containing the age of the person, or an {@link Optional#empty()} if the age is null.
      */
-    public String getAge() {
-        return age;
+    public Optional<String> getAge() {
+        return Optional.ofNullable(age);
     }
 
     /**
@@ -655,10 +666,10 @@ public class Asset {
     /**
      * Retrieves the date of the last checkout.
      *
-     * @return The date of the last checkout as a Date object.
+     * @return an {@link Optional} object containing the date of the last checkout, or an {@link Optional#empty()} if no checkout has occurred
      */
-    public Date getLastCheckout() {
-        return lastCheckout;
+    public Optional<Date> getLastCheckout() {
+        return Optional.ofNullable(lastCheckout);
     }
 
     /**
@@ -671,12 +682,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the date and time of the last check-in.
+     * Retrieves the last check-in date.
      *
-     * @return the date and time of the last check-in as a Date object.
+     * @return an {@link Optional} containing the last check-in date, or empty if there is no previous check-in.
      */
-    public Date getLastCheckin() {
-        return lastCheckin;
+    public Optional<Date> getLastCheckin() {
+        return Optional.ofNullable(lastCheckin);
     }
 
     /**
@@ -689,12 +700,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the expected check-in date.
+     * Returns the expected check-in date.
      *
-     * @return The expected check-in date as a Date object.
+     * @return an {@link Optional} date representing the expected check-in date, or empty if it is not set.
      */
-    public Date getExpectedCheckin() {
-        return expectedCheckin;
+    public Optional<Date> getExpectedCheckin() {
+        return Optional.ofNullable(expectedCheckin);
     }
 
     /**
@@ -707,12 +718,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the purchase cost of an item.
+     * Retrieves the purchase cost as an optional value.
      *
-     * @return The purchase cost of the item as a String.
+     * @return an {@link Optional} object containing the purchase cost, or an {@link Optional#empty()} if the purchase cost is null.
      */
-    public String getPurchaseCost() {
-        return purchaseCost;
+    public Optional<String> getPurchaseCost() {
+        return Optional.ofNullable(purchaseCost);
     }
 
     /**
@@ -726,12 +737,12 @@ public class Asset {
     }
 
     /**
-     * Returns the value of the check-in counter.
+     * Retrieves the check-in counter.
      *
-     * @return The value of the check-in counter.
+     * @return an {@link Optional} containing the check-in counter if it exists, otherwise an {@link Optional#empty()}
      */
-    public int getCheckinCounter() {
-        return checkinCounter;
+    public Optional<Integer> getCheckinCounter() {
+        return Optional.of(checkinCounter);
     }
 
     /**
@@ -744,12 +755,14 @@ public class Asset {
     }
 
     /**
-     * Returns the current value of the checkout counter.
+     * Retrieves the current value of the checkout counter.
      *
-     * @return The checkout counter value.
+     * @return an {@link Optional} representing the checkout counter value.
+     *         If the value is present, it will be wrapped in an {@link Integer}.
+     *         If the value is absent, {@link Optional#empty()} will be returned.
      */
-    public int getCheckoutCounter() {
-        return checkoutCounter;
+    public Optional<Integer> getCheckoutCounter() {
+        return Optional.of(checkoutCounter);
     }
 
     /**
@@ -762,12 +775,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the value of the requestsCounter field.
+     * Retrieves the value of the requests counter.
      *
-     * @return The value of the requestsCounter field.
+     * @return an {@link Optional} containing the requests counter value
      */
-    public int getRequestsCounter() {
-        return requestsCounter;
+    public Optional<Integer> getRequestsCounter() {
+        return Optional.of(requestsCounter);
     }
 
     /**
@@ -780,12 +793,13 @@ public class Asset {
     }
 
     /**
-     * Checks if the user can perform checkout.
+     * Checks if the user can perform a checkout.
      *
-     * @return true if the user can perform checkout, false otherwise.
+     * @return {@link Optional} object that contains a boolean value indicating if the user can checkout,
+     *         or an {@link Optional#empty()} if the value is not available.
      */
-    public boolean canUserCheckout() {
-        return userCanCheckout;
+    public Optional<Boolean> canUserCheckout() {
+        return Optional.of(userCanCheckout);
     }
 
     /**
@@ -798,12 +812,13 @@ public class Asset {
     }
 
     /**
-     * Gets the book value.
+     * Retrieves the value of the book.
      *
-     * @return The book value as a String.
+     * @return Returns an {@link Optional} object that may contain the value of the book.
+     *         If the book value is null, the {@link Optional} object will be empty.
      */
-    public String getBookValue() {
-        return bookValue;
+    public Optional<String> getBookValue() {
+        return Optional.ofNullable(bookValue);
     }
 
     /**
@@ -816,12 +831,12 @@ public class Asset {
     }
 
     /**
-     * Retrieves the custom fields associated with the asset.
+     * Retrieve the custom fields for an object.
      *
-     * @return the CustomFields object representing the custom fields of the asset
+     * @return an {@link Optional} containing the custom fields of the object, or an {@link Optional#empty()} if no custom fields are available.
      */
-    public CustomFields getCustomFields() {
-        return customFields;
+    public Optional<CustomFields> getCustomFields() {
+        return Optional.ofNullable(customFields);
     }
 
     /**
@@ -834,12 +849,12 @@ public class Asset {
     }
 
     /**
-     * This method is used to retrieve the available actions for an asset.
+     * Retrieves the available actions.
      *
-     * @return The AvailableActions object representing the available actions.
+     * @return An {@link Optional} containing the available actions, or an {@link Optional#empty()} if there are no actions available.
      */
-    public AvailableActions getAvailableActions() {
-        return availableActions;
+    public Optional<AvailableActions> getAvailableActions() {
+        return Optional.ofNullable(availableActions);
     }
 
     /**

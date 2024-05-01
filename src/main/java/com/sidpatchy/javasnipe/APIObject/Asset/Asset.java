@@ -1,7 +1,11 @@
-package com.sidpatchy.javasnipe.Asset;
+package com.sidpatchy.javasnipe.APIObject.Asset;
 
 import com.google.gson.annotations.SerializedName;
-import com.sidpatchy.javasnipe.Meta.*;
+import com.sidpatchy.javasnipe.APIObject.Company.Company;
+import com.sidpatchy.javasnipe.APIObject.Generic.CustomFields;
+import com.sidpatchy.javasnipe.APIObject.Generic.Date;
+import com.sidpatchy.javasnipe.APIObject.Generic.GenericField;
+import com.sidpatchy.javasnipe.APIObject.Generic.Location;
 
 /**
  * Represents an asset.
@@ -19,12 +23,12 @@ public class Asset {
     private String modelNumber;
     @SerializedName("eol")
     private String eol;
-    private AssetEolDate assetEolDate;
+    private Date assetEolDate;
     @SerializedName("status_label")
     private StatusLabel statusLabel;
-    private Category category;
-    private Manufacturer manufacturer;
-    private Supplier supplier;
+    private GenericField category;
+    private GenericField manufacturer;
+    private GenericField supplier;
     private String notes;
     @SerializedName("order_number")
     private String orderNumber;
@@ -37,7 +41,7 @@ public class Asset {
     @SerializedName("alt_barcode")
     private String altBarcode;
     @SerializedName("assigned_to")
-    private Person assignedTo;
+    private GenericField assignedTo;
     @SerializedName("warranty_months")
     private Integer warrantyMonths;
     @SerializedName("warranty_expires")
@@ -237,18 +241,18 @@ public class Asset {
     /**
      * Retrieves the End-of-Life (EOL) date of the asset.
      *
-     * @return The AssetEolDate object representing the EOL date of the asset.
+     * @return The Date object representing the EOL date of the asset.
      */
-    public AssetEolDate getAssetEolDate() {
+    public Date getAssetEolDate() {
         return assetEolDate;
     }
 
     /**
      * Sets the EOL (End of Life) date for the asset.
      *
-     * @param assetEolDate The AssetEolDate object representing the EOL date to set for the asset.
+     * @param assetEolDate The Date object representing the EOL date to set for the asset.
      */
-    public void setAssetEolDate(AssetEolDate assetEolDate) {
+    public void setAssetEolDate(Date assetEolDate) {
         this.assetEolDate = assetEolDate;
     }
 
@@ -275,7 +279,7 @@ public class Asset {
      *
      * @return The Category object representing the category of the asset.
      */
-    public Category getCategory() {
+    public GenericField getCategory() {
         return category;
     }
 
@@ -284,7 +288,7 @@ public class Asset {
      *
      * @param category the category to be set
      */
-    public void setCategory(Category category) {
+    public void setCategory(GenericField category) {
         this.category = category;
     }
 
@@ -293,7 +297,7 @@ public class Asset {
      *
      * @return The manufacturer of the product.
      */
-    public Manufacturer getManufacturer() {
+    public GenericField getManufacturer() {
         return manufacturer;
     }
 
@@ -302,7 +306,7 @@ public class Asset {
      *
      * @param manufacturer the manufacturer of the product
      */
-    public void setManufacturer(Manufacturer manufacturer) {
+    public void setManufacturer(GenericField manufacturer) {
         this.manufacturer = manufacturer;
     }
 
@@ -311,7 +315,7 @@ public class Asset {
      *
      * @return the supplier
      */
-    public Supplier getSupplier() {
+    public GenericField getSupplier() {
         return supplier;
     }
 
@@ -320,7 +324,7 @@ public class Asset {
      *
      * @param supplier the supplier to set
      */
-    public void setSupplier(Supplier supplier) {
+    public void setSupplier(GenericField supplier) {
         this.supplier = supplier;
     }
 
@@ -473,7 +477,7 @@ public class Asset {
      *
      * @return the person object representing the assigned person
      */
-    public Person getAssignedTo() {
+    public GenericField getAssignedTo() {
         return assignedTo;
     }
 
@@ -482,7 +486,7 @@ public class Asset {
      *
      * @param assignedTo the person to be assigned to this task
      */
-    public void setAssignedTo(Person assignedTo) {
+    public void setAssignedTo(GenericField assignedTo) {
         this.assignedTo = assignedTo;
     }
 

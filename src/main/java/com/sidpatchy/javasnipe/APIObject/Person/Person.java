@@ -1,8 +1,5 @@
-package com.sidpatchy.javasnipe.Meta;
+package com.sidpatchy.javasnipe.APIObject.Person;
 
-/**
- * The Person class represents a person with an ID and a name.
- */
 public class Person {
     private Integer id; // Can be null
     private String name;

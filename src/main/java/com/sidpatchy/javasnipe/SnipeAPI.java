@@ -2,7 +2,7 @@ package com.sidpatchy.javasnipe;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.sidpatchy.javasnipe.Asset.Asset;
+import com.sidpatchy.javasnipe.APIObject.Asset.Asset;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +24,7 @@ public class SnipeAPI {
     private final String apiEndpoint; // Development endpoint: https://develop.snipeitapp.com/api/v1/
     private final Gson gson = new Gson();
 
-    public SnipeAPI(String token, String apiEndpoint) {
+    protected SnipeAPI(String token, String apiEndpoint) {
         this.token = token;
         this.apiEndpoint = apiEndpoint;
     }

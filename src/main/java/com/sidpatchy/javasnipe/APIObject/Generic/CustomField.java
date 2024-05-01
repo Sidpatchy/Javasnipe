@@ -1,4 +1,4 @@
-package com.sidpatchy.javasnipe.Meta;
+package com.sidpatchy.javasnipe.APIObject.Generic;
 
 /**
  * The CustomField class represents a custom field with a value, field format, and element.

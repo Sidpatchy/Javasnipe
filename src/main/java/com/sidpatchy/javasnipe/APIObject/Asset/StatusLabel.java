@@ -1,4 +1,4 @@
-package com.sidpatchy.javasnipe.Asset;
+package com.sidpatchy.javasnipe.APIObject.Asset;
 
 import com.google.gson.annotations.SerializedName;
 

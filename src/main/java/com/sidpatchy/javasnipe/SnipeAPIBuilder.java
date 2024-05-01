@@ -9,7 +9,7 @@ public class SnipeAPIBuilder {
         return this;
     }
 
-    public SnipeAPIBuilder setApiURL(String apiEndpoint) {
+    public SnipeAPIBuilder setApiEndpoint(String apiEndpoint) {
         this.apiEndpoint = apiEndpoint;
         return this;
     }

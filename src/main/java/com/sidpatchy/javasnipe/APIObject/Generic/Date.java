@@ -1,4 +1,4 @@
-package com.sidpatchy.javasnipe.Meta;
+package com.sidpatchy.javasnipe.APIObject.Generic;
 
 /**
  * The Date class represents a date object.

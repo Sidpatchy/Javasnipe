@@ -1,4 +1,4 @@
-package com.sidpatchy.javasnipe.Asset;
+package com.sidpatchy.javasnipe.APIObject.Asset;
 
 /**
  * Represents a set of available actions that can be performed.

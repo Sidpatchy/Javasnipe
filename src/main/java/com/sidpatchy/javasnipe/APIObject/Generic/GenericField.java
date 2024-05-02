@@ -1,5 +1,7 @@
 package com.sidpatchy.javasnipe.APIObject.Generic;
 
+import java.util.Optional;
+
 /**
  * The GenericField class represents a generic field.
  */
@@ -12,8 +14,8 @@ public class GenericField {
      *
      * @return the ID of the GenericField
      */
-    public int getId() {
-        return id;
+    public Optional<Integer> getId() {
+        return Optional.of(id);
     }
 
     /**

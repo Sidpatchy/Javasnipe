@@ -24,7 +24,8 @@ public class Asset {
     @SerializedName("model_number")
     private String modelNumber;
     @SerializedName("eol")
-    private Date eol;
+    private String eol;
+    @SerializedName("asset_eol_date")
     private Date assetEolDate;
     @SerializedName("status_label")
     private StatusLabel statusLabel;
@@ -73,7 +74,7 @@ public class Asset {
     private boolean userCanCheckout;
     @SerializedName("book_value")
     private String bookValue;
-    @SerializedName("custom_fields") // todo known to be broken
+    @SerializedName("custom_fields")
     private CustomFields customFields;
     @SerializedName("available_actions")
     private AvailableActions availableActions;
@@ -231,7 +232,7 @@ public class Asset {
      * @return an {@link Optional} containing the end-of-line character(s) as a String,
      *         or an {@link Optional#empty()} if no end-of-line character(s) are defined.
      */
-    public Optional<Date> getEol() {
+    public Optional<String> getEol() {
         return Optional.ofNullable(eol);
     }
 
@@ -240,7 +241,7 @@ public class Asset {
      *
      * @param eol The EOL value to set for the Asset.
      */
-    public void setEol(Date eol) {
+    public void setEol(String eol) {
         this.eol = eol;
     }
 

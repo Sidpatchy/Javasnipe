@@ -1,7 +1,16 @@
 # Javasnipe
+![GitHub License](https://img.shields.io/github/license/sidpatchy/Javasnipe?style=flat-square&label=License) ![Static Badge](https://img.shields.io/badge/17+-0?style=flat-square&label=Java%20Compatibility) ![Static Badge](https://img.shields.io/badge/6.3.4-0?style=flat-square&label=Snipe-IT%20Version)
+
 A modern and easy-to-use library for interacting with the Snipe-IT API written in Java.
 
-Javasnipe reduces itself to `CompletableFuture`s, meaning it's easy to pick up for Java developers of any skill-level.
+## Features
+- **Asynchronous API interactions**: Utilizes `CompletableFuture`s for non-blocking API calls, enabling efficient handling of concurrent operations.
+- **Simplified error handling**: Leverages `Optional`s to handle null values gracefully, reducing boilerplate code and simplifying debugging.
+- **No new frameworks required**: Built with standard Java classes to minimize the learning curve and integration complexity, ideal for projects looking to avoid dependency on heavy frameworks.
+- **Accessibility for all skill levels**: Designed to be straightforward for developers of any skill level.
+
+## Implementation Status
+Javasnipe is a work in progress. See below for what is, and is not implemented. 
 
 ### Currently Implemented
 - Assets (`/hardware`, fully implemented)

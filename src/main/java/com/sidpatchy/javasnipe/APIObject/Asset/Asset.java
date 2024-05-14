@@ -2,7 +2,7 @@ package com.sidpatchy.javasnipe.APIObject.Asset;
 
 import com.google.gson.annotations.SerializedName;
 import com.sidpatchy.javasnipe.APIObject.Company.Company;
-import com.sidpatchy.javasnipe.APIObject.Generic.CustomFields;
+import com.sidpatchy.javasnipe.APIObject.CustomField.CustomFields;
 import com.sidpatchy.javasnipe.APIObject.Generic.Date;
 import com.sidpatchy.javasnipe.APIObject.Generic.GenericField;
 import com.sidpatchy.javasnipe.APIObject.Generic.Location;

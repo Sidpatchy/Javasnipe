@@ -6,6 +6,13 @@ plugins {
 group = 'com.sidpatchy.javasnipe'
 version = '1.0-SNAPSHOT'
 
+jar {
+    manifest.attributes(
+            'Main-Class': 'com.sidpatchy.javasnipe.Main',
+            'Multi-Release': 'true'
+    )
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }

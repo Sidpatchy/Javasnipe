@@ -1,11 +1,10 @@
 package com.sidpatchy.javasnipe.IO;
 
 import com.google.gson.*;
-import com.sidpatchy.javasnipe.APIObject.Generic.CustomField;
-import com.sidpatchy.javasnipe.APIObject.Generic.CustomFields;
+import com.sidpatchy.javasnipe.APIObject.CustomField.CustomField;
+import com.sidpatchy.javasnipe.APIObject.CustomField.CustomFields;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CustomFieldDeserializer implements JsonDeserializer<CustomFields> {

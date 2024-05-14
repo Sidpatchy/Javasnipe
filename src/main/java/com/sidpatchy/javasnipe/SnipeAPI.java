@@ -5,14 +5,12 @@ import com.google.gson.reflect.TypeToken;
 import com.sidpatchy.javasnipe.APIObject.Asset.Asset;
 import com.sidpatchy.javasnipe.APIObject.Asset.StatusLabel;
 import com.sidpatchy.javasnipe.APIObject.Enum.*;
-import com.sidpatchy.javasnipe.APIObject.Generic.CustomField;
-import com.sidpatchy.javasnipe.APIObject.Generic.CustomFields;
+import com.sidpatchy.javasnipe.APIObject.CustomField.CustomFields;
 import com.sidpatchy.javasnipe.APIObject.Generic.Location;
 import com.sidpatchy.javasnipe.APIObject.License.License;
 import com.sidpatchy.javasnipe.APIObject.Person.Person;
 import com.sidpatchy.javasnipe.IO.CustomFieldDeserializer;
 import com.sidpatchy.javasnipe.IO.CustomFieldSerializer;
-import jdk.jshell.SourceCodeAnalysis;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +24,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -83,7 +80,7 @@ public class SnipeAPI {
                 URL url = new URL(apiEndpoint + endpoint);
                 HttpURLConnection connection = setupHttpURLConnection(url, "GET");
                 int status = connection.getResponseCode();
-                System.out.println("HTTP Status: " + status);  // Log the status
+                logger.debug("HTTP Status: {}", status);  // Log the status
 
                 if (status != HttpURLConnection.HTTP_OK) {
                     logger.error("Failed to retrieve data: HTTP error " + status);
@@ -92,7 +89,7 @@ public class SnipeAPI {
 
                 InputStreamReader reader = new InputStreamReader(connection.getInputStream());
                 JsonObject jsonResponse = gson.fromJson(reader, JsonObject.class);
-                System.out.println("Raw JSON Response: " + jsonResponse);  // Log the raw JSON
+                logger.debug("Raw JSON Response: {}", jsonResponse);  // Log the raw JSON
 
                 JsonArray jsonArray = jsonResponse.getAsJsonArray("rows");
                 List<T> result = gson.fromJson(jsonArray, typeOfT);

@@ -1,4 +1,4 @@
-package com.sidpatchy.javasnipe.APIObject.Generic;
+package com.sidpatchy.javasnipe.APIObject.CustomField;
 
 import com.google.gson.annotations.SerializedName;
 

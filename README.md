@@ -38,3 +38,14 @@ Javasnipe is a work in progress. See below for what is, and is not implemented.
 - Groups (`/groups`)
 - Settings (`/settings/*`)
 - Reports (`/reports/activity`)
+
+## Design
+Many objects within the Snipe-IT API have different variants: one variant is used when the object is assigned to other objects, and another is used when the object is configured and created.
+
+For example, the Company object assigned to an Asset is different from the Company object used in the configuration.
+
+API wrappers, like Javasnipe, have two options to handle this:
+1) Combine both variants into one JavaBean, or
+2) Split them into separate JavaBeans.
+
+Javasnipe chose option B because it is more straightforward to work with and develop. The objects assigned to assets, people, etc., are named like Company, while the configuration objects are named like ConfigurableCompany.

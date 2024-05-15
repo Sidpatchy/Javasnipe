@@ -1,12 +1,6 @@
 package com.sidpatchy.javasnipe;
 
-import com.google.gson.Gson;
-import com.sidpatchy.javasnipe.APIObject.Asset.Asset;
-import com.sidpatchy.javasnipe.APIObject.Asset.AssetBuilder;
-import com.sidpatchy.javasnipe.APIObject.Asset.Model;
-import com.sidpatchy.javasnipe.APIObject.Asset.StatusLabel;
-import com.sidpatchy.javasnipe.APIObject.Enum.Order;
-import com.sidpatchy.javasnipe.APIObject.Enum.Sort;
+import com.sidpatchy.javasnipe.APIObject.CustomField.ConfigurableCustomField;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,15 +14,14 @@ public class Main {
                 .build();
 
         // Get all assets, then get the first asset in the list.
-        Asset asset = api.getAssetBySerialNumber("1GBDZW2").join().get(0);
+        ConfigurableCustomField configurableCustomField = api.getCustomFieldById(5).join();
 
-        // Get all assets, then get the asset tag of the first asset in the list.
-        String assetTag = asset.getAssetTag();
-        logger.info("Asset Tag: {}", assetTag);
+        configurableCustomField.setName("Domain/Azur");
 
-        // Get the asset's serial number.
-        String serialNumber = asset.getSerial().orElse("");
-        logger.info("Serial Number: {}", serialNumber);
+        api.updateCustomField(configurableCustomField);
+
+        configurableCustomField = api.getCustomFieldById(5).join();
+        logger.info(configurableCustomField.getName());
 
         //logger.info(asset.getCustomFields().orElse(null).getFields().toString());
     }

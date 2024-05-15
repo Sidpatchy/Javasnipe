@@ -4,6 +4,7 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.sidpatchy.javasnipe.APIObject.Asset.Asset;
 import com.sidpatchy.javasnipe.APIObject.Asset.StatusLabel;
+import com.sidpatchy.javasnipe.APIObject.CustomField.ConfigurableCustomField;
 import com.sidpatchy.javasnipe.APIObject.Enum.*;
 import com.sidpatchy.javasnipe.APIObject.CustomField.CustomFields;
 import com.sidpatchy.javasnipe.APIObject.Generic.Location;
@@ -33,6 +34,8 @@ public class SnipeAPI {
     private final String token;
     private final String apiEndpoint; // Development endpoint: https://develop.snipeitapp.com/api/v1/
     private final Gson gson;
+
+    private static final String CUSTOM_FIELDS_ENDPOINT = "/fields";
 
     protected SnipeAPI(String token, String apiEndpoint) {
         this.token = token;
@@ -89,7 +92,7 @@ public class SnipeAPI {
 
                 InputStreamReader reader = new InputStreamReader(connection.getInputStream());
                 JsonObject jsonResponse = gson.fromJson(reader, JsonObject.class);
-                logger.debug("Raw JSON Response: {}", jsonResponse);  // Log the raw JSON
+                logger.info("Raw JSON Response: {}", jsonResponse);  // Log the raw JSON
 
                 JsonArray jsonArray = jsonResponse.getAsJsonArray("rows");
                 List<T> result = gson.fromJson(jsonArray, typeOfT);
@@ -588,4 +591,111 @@ public class SnipeAPI {
 
         return performAssetAction(assetToRestore, AssetAction.RESTORE, details);
     }
+
+    public CompletableFuture<List<ConfigurableCustomField>> getCustomFields() {
+        Type typeOfT = new TypeToken<List<ConfigurableCustomField>>(){}.getType();
+        return fetchAllPages(CUSTOM_FIELDS_ENDPOINT, typeOfT, 500, 0);
+    }
+
+    public CompletableFuture<ConfigurableCustomField> getCustomFieldById(int fieldId) {
+        String endpoint = CUSTOM_FIELDS_ENDPOINT + "/" + fieldId;
+        Type typeOfT = new TypeToken<ConfigurableCustomField>(){}.getType();
+
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                URL url = new URL(apiEndpoint + endpoint);
+                HttpURLConnection connection = setupHttpURLConnection(url, "GET");
+                int status = connection.getResponseCode();
+
+                if (status != HttpURLConnection.HTTP_OK) {
+                    logger.error("Failed to retrieve custom field: HTTP error {}", status);
+                    throw new RuntimeException("HTTP error: " + url.toString());
+                }
+
+                InputStreamReader reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8);
+                ConfigurableCustomField result = gson.fromJson(reader, ConfigurableCustomField.class);
+                reader.close();
+                return result;
+            } catch (Exception e) {
+                logger.error("Error fetching custom field from API", e);
+                throw new RuntimeException(e);
+            }
+        }, Executors.newCachedThreadPool());
+    }
+
+
+    public CompletableFuture<ConfigurableCustomField> createCustomField(ConfigurableCustomField customField) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                URL url = new URL(apiEndpoint + CUSTOM_FIELDS_ENDPOINT);
+                HttpURLConnection connection = setupHttpURLConnection(url, "POST");
+
+                String jsonInput = gson.toJson(customField);
+                try (OutputStream os = connection.getOutputStream()) {
+                    byte[] input = jsonInput.getBytes(StandardCharsets.UTF_8);
+                    os.write(input, 0, input.length);
+                }
+
+                int status = connection.getResponseCode();
+                if (status == HttpURLConnection.HTTP_OK) {
+                    InputStreamReader reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8);
+                    ConfigurableCustomField responseField = gson.fromJson(reader, ConfigurableCustomField.class);
+                    reader.close();
+                    return responseField;
+                } else {
+                    String errorMessage = "Failed to create custom field: HTTP error code " + status;
+                    logger.error(errorMessage);
+                    throw new RuntimeException(errorMessage);
+                }
+            } catch (IOException e) {
+                logger.error("Error when attempting to create custom field", e);
+                throw new RuntimeException("Network error when attempting to create custom field", e);
+            }
+        }, Executors.newCachedThreadPool());
+    }
+
+    public CompletableFuture<ConfigurableCustomField> updateCustomField(ConfigurableCustomField customField) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                URL url = new URL(apiEndpoint + CUSTOM_FIELDS_ENDPOINT + "/" + customField.getId());
+                HttpURLConnection connection = setupHttpURLConnection(url, "PUT");
+
+                String jsonInput = gson.toJson(customField);
+                try (OutputStream os = connection.getOutputStream()) {
+                    byte[] input = jsonInput.getBytes(StandardCharsets.UTF_8);
+                    os.write(input, 0, input.length);
+                }
+
+                int status = connection.getResponseCode();
+                if (status == HttpURLConnection.HTTP_OK) {
+                    InputStreamReader reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8);
+                    ConfigurableCustomField responseField = gson.fromJson(reader, ConfigurableCustomField.class);
+                    reader.close();
+                    return responseField;
+                } else {
+                    String errorMessage = "Failed to update custom field: HTTP error code " + status;
+                    logger.error(errorMessage);
+                    throw new RuntimeException(errorMessage);
+                }
+            } catch (IOException e) {
+                logger.error("Error when attempting to update custom field", e);
+                throw new RuntimeException("Network error when attempting to update custom field", e);
+            }
+        }, Executors.newCachedThreadPool());
+    }
+
+    public CompletableFuture<Boolean> deleteCustomField(int fieldId) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                URL url = new URL(apiEndpoint + CUSTOM_FIELDS_ENDPOINT + "/" + fieldId);
+                HttpURLConnection connection = setupHttpURLConnection(url, "DELETE");
+                int status = connection.getResponseCode();
+                return status == HttpURLConnection.HTTP_OK;
+            } catch (IOException e) {
+                logger.error("Error when attempting to delete custom field", e);
+                throw new RuntimeException("Network error when attempting to delete custom field", e);
+            }
+        }, Executors.newCachedThreadPool());
+    }
+
 }

@@ -4,10 +4,12 @@ import com.google.gson.annotations.SerializedName;
 import com.sidpatchy.javasnipe.APIObject.Generic.Date;
 import com.sidpatchy.javasnipe.APIObject.Generic.GenericField;
 
+import java.util.List;
+
 /**
  * The ConfigurableCustomField class represents a custom field that can be configured with various properties.
  * It extends the GenericField class and adds additional properties specific to configurable custom fields.
- *
+ * <p>
  * Not to be confused with {@link CustomField} which is the object attached to assets. This is the parent of custom
  * fields, and is how they can be configured and created.
  */
@@ -19,7 +21,7 @@ public class ConfigurableCustomField extends GenericField {
     @SerializedName("field_values")
     private String fieldValues;
     @SerializedName("field_values_array")
-    private String fieldValuesArray;
+    private List<String> fieldValuesArray;
     @SerializedName("type")
     private String type;
     @SerializedName("required")
@@ -88,7 +90,7 @@ public class ConfigurableCustomField extends GenericField {
      *
      * @return The value of the fieldValuesArray property.
      */
-    public String getFieldValuesArray() {
+    public List<String> getFieldValuesArray() {
         return fieldValuesArray;
     }
 
@@ -97,7 +99,7 @@ public class ConfigurableCustomField extends GenericField {
      *
      * @param fieldValuesArray the new value for the fieldValuesArray property
      */
-    public void setFieldValuesArray(String fieldValuesArray) {
+    public void setFieldValuesArray(List<String> fieldValuesArray) {
         this.fieldValuesArray = fieldValuesArray;
     }
 

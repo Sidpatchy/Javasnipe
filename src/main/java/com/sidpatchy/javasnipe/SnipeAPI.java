@@ -2,14 +2,14 @@ package com.sidpatchy.javasnipe;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.sidpatchy.javasnipe.APIObject.Asset.Asset;
-import com.sidpatchy.javasnipe.APIObject.Asset.StatusLabel;
-import com.sidpatchy.javasnipe.APIObject.CustomField.ConfigurableCustomField;
-import com.sidpatchy.javasnipe.APIObject.Enum.*;
-import com.sidpatchy.javasnipe.APIObject.CustomField.CustomFields;
-import com.sidpatchy.javasnipe.APIObject.Generic.Location;
-import com.sidpatchy.javasnipe.APIObject.License.License;
-import com.sidpatchy.javasnipe.APIObject.Person.Person;
+import com.sidpatchy.javasnipe.Bean.Asset.Asset;
+import com.sidpatchy.javasnipe.Bean.Asset.StatusLabel;
+import com.sidpatchy.javasnipe.Bean.CustomField.ConfigurableCustomField;
+import com.sidpatchy.javasnipe.Bean.Enum.*;
+import com.sidpatchy.javasnipe.Bean.CustomField.CustomFields;
+import com.sidpatchy.javasnipe.Bean.Generic.Location;
+import com.sidpatchy.javasnipe.Bean.License.License;
+import com.sidpatchy.javasnipe.Bean.Person.Person;
 import com.sidpatchy.javasnipe.IO.CustomFieldDeserializer;
 import com.sidpatchy.javasnipe.IO.CustomFieldSerializer;
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +29,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Deprecated
 public class SnipeAPI {
     private final Logger logger = LogManager.getLogger();
     private final String token;
@@ -92,7 +93,7 @@ public class SnipeAPI {
 
                 InputStreamReader reader = new InputStreamReader(connection.getInputStream());
                 JsonObject jsonResponse = gson.fromJson(reader, JsonObject.class);
-                logger.info("Raw JSON Response: {}", jsonResponse);  // Log the raw JSON
+                logger.debug("Raw JSON Response: {}", jsonResponse);  // Log the raw JSON
 
                 JsonArray jsonArray = jsonResponse.getAsJsonArray("rows");
                 List<T> result = gson.fromJson(jsonArray, typeOfT);
@@ -298,7 +299,7 @@ public class SnipeAPI {
 
                 // Convert JsonObject to JSON String
                 String jsonInput = gson.toJson(jsonAsset);
-                logger.info("JSON Payload: " + jsonInput);
+                logger.debug("JSON Payload: {}", jsonInput);
 
                 try (OutputStream os = connection.getOutputStream()) {
                     byte[] input = jsonInput.getBytes(StandardCharsets.UTF_8);
@@ -309,7 +310,7 @@ public class SnipeAPI {
                 if (status == HttpURLConnection.HTTP_OK) {
                     InputStreamReader reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8);
                     Asset responseAsset = gson.fromJson(reader, Asset.class);
-                    logger.info(gson.toJson(responseAsset));
+                    logger.debug(gson.toJson(responseAsset));
                     reader.close();
                     return responseAsset;
                 } else {
@@ -697,5 +698,6 @@ public class SnipeAPI {
             }
         }, Executors.newCachedThreadPool());
     }
+
 
 }

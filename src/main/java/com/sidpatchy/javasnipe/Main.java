@@ -1,8 +1,13 @@
 package com.sidpatchy.javasnipe;
 
-import com.sidpatchy.javasnipe.APIObject.CustomField.ConfigurableCustomField;
+import com.sidpatchy.javasnipe.Bean.Asset.Asset;
+import com.sidpatchy.javasnipe.Bean.Enum.Order;
+import com.sidpatchy.javasnipe.Bean.Enum.Sort;
+import com.sidpatchy.javasnipe.Bean.Generic.GenericField;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 public class Main {
     static Logger logger = LogManager.getLogger(Main.class);
@@ -13,15 +18,26 @@ public class Main {
                 .setApiEndpoint("http://10.0.0.176/api/v1")
                 .build();
 
-        // Get all assets, then get the first asset in the list.
-        ConfigurableCustomField configurableCustomField = api.getCustomFieldById(5).join();
+        // Get all assets
+        List<Asset> assets = api.getAssetList(Sort.ASSET_TAG, Order.ASCENDING).join();
 
-        configurableCustomField.setName("Domain/Azur");
+        // Loop through list of assets
+        for (Asset asset : assets) {
+            int assetID = asset.getId().orElse(-1);
 
-        api.updateCustomField(configurableCustomField);
+            logger.info(assetID);
 
-        configurableCustomField = api.getCustomFieldById(5).join();
-        logger.info(configurableCustomField.getName());
+            Asset asset2 = api.getAssetByID(String.valueOf(assetID)).join();
+
+            GenericField assignedTo = asset2.getAssignedTo().orElse(null);
+
+            if (assignedTo == null) {
+                logger.fatal(assignedTo.getName());
+            }
+            else {
+                logger.fatal("FUCK");
+            }
+        }
 
         //logger.info(asset.getCustomFields().orElse(null).getFields().toString());
     }

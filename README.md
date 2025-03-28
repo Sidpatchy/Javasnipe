@@ -15,9 +15,10 @@ Javasnipe is a work in progress. See below for what is, and is not implemented.
 
 ### Currently Implemented
 - Assets (`/hardware`, fully implemented)
+- Custom fields (`/fields`, fully implemented)
 
 ### Partially Implemeneted
-- Custom fields (able to get/set data for assets, cannot use API endpoint)
+- Fieldsets (`/fieldsets`, pretty much does not exist)
 - Companies (missing most fields, cannot use API endpoint)
 - Locations (missing most fields, cannot use API endpoint)
 - People (`/users`, missing most fields, cannot use API endpoint)
@@ -29,7 +30,6 @@ Javasnipe is a work in progress. See below for what is, and is not implemented.
 - Suppliers (missing most fields, cannot use API endpoint)
 
 ### Not Yet Implemented
-- Fieldsets (`/fieldsets`)
 - Accessories (`/accessories`)
 - Consumables (`/consumables`)
 - Components (`/components`)

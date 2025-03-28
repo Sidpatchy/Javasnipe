@@ -1,5 +1,6 @@
 package com.sidpatchy.javasnipe;
 
+@Deprecated
 public class SnipeAPIBuilder {
     private String token;
     private String apiEndpoint;

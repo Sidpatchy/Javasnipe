@@ -1,6 +1,6 @@
 package com.sidpatchy.javasnipe;
 
-import com.sidpatchy.javasnipe.APIObject.Asset.Asset;
+import com.sidpatchy.javasnipe.Bean.Asset.Asset;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

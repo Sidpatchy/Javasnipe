@@ -1,7 +1,7 @@
 package com.sidpatchy.javasnipe.IO;
 
 import com.google.gson.*;
-import com.sidpatchy.javasnipe.APIObject.CustomField.CustomField;
+import com.sidpatchy.javasnipe.Bean.CustomField.CustomField;
 
 import java.lang.reflect.Type;
 import java.util.Map;

@@ -7,8 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -113,6 +112,80 @@ public class HttpConnectionManager {
                 throw new RuntimeException(e);
             }
         }, Executors.newCachedThreadPool());
+    }
+
+    /**
+     * Executes a POST request to the specified endpoint with the provided JSON payload,
+     * returning the raw response as a byte array.
+     *
+     * @param endpoint the API endpoint to which the POST request is sent
+     * @param payload the JSON payload to include in the POST request
+     * @return a CompletableFuture that resolves to the raw byte array response
+     */
+    public CompletableFuture<byte[]> postBytes(String endpoint, JsonObject payload) {
+        return CompletableFuture.supplyAsync(() -> {
+            HttpURLConnection connection = null;
+            try {
+                URL url = new URL(apiEndpoint + endpoint);
+                connection = setupConnection(url, "POST");
+
+                // Write JSON payload
+                try (OutputStream os = connection.getOutputStream()) {
+                    os.write(gson.toJson(payload).getBytes(StandardCharsets.UTF_8));
+                }
+
+                // Handle error responses properly
+                int status = connection.getResponseCode();
+                if (status >= 400) {
+                    String errorBody = readStream(connection.getErrorStream());
+                    throw new RuntimeException("HTTP Error " + status + ": " + errorBody);
+                }
+
+                // Read raw bytes for successful responses
+                return readBytes(connection.getInputStream());
+
+            } catch (Exception e) {
+                logger.error("Error during POST request for bytes", e);
+                throw new RuntimeException(e);
+            } finally {
+                if (connection != null) connection.disconnect();
+            }
+        }, Executors.newCachedThreadPool());
+    }
+
+    /**
+     * Reads all bytes from the provided input stream and returns them as a byte array.
+     *
+     * @param inputStream the input stream to read data from
+     * @return a byte array containing all the bytes read from the input stream
+     * @throws IOException if an I/O error occurs while reading from the input stream
+     */
+    private byte[] readBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream buffer = new  ByteArrayOutputStream();
+        byte[] data = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, bytesRead);
+        }
+        return buffer.toByteArray();
+    }
+
+    /**
+     * Reads all content from the provided InputStream and converts it into a String.
+     *
+     * @param inputStream the InputStream to read from
+     * @return the content of the InputStream as a String
+     * @throws IOException if an I/O error occurs during reading
+     */
+    private String readStream(InputStream inputStream) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            return response.toString();
+        }
     }
 
     /**

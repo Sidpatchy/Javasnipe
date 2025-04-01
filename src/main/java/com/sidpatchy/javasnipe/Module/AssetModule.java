@@ -146,7 +146,7 @@ public class AssetModule {
         assetTags.forEach(tagsArray::add);
         payload.add("asset_tags", tagsArray);
 
-        return connectionManager.post(endpoint, payload, byte[].class);
+        return connectionManager.postBytes(endpoint, payload);
     }
 }
 

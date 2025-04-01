@@ -4,6 +4,7 @@ import com.sidpatchy.javasnipe.Bean.Asset.Asset;
 import com.sidpatchy.javasnipe.Bean.Enum.Order;
 import com.sidpatchy.javasnipe.Bean.Enum.Sort;
 import com.sidpatchy.javasnipe.Bean.Generic.GenericField;
+import com.sidpatchy.javasnipe.Module.AssetModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,32 +14,43 @@ public class Main {
     static Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws InterruptedException {
-        SnipeAPI api = new SnipeAPIBuilder()
-                .setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMGQzNmRkNjI1N2VlMjEwNjYyNGFjYjIxNmZmMTE0ZDJmNDAzZDI4MWU2YWI1NTdjNDk4ODMyZDc3YjExMmQzMjZkMTAzMGYwYTA1NTc3ZGYiLCJpYXQiOjE3MTQ1MDc1MTEuNjkwNDczLCJuYmYiOjE3MTQ1MDc1MTEuNjkwNDc0LCJleHAiOjIxODc4MDY3MTEuNjg0NjA1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.lP5O_T3hvCKkqeCWV1r-YpIYQUH08HFKr_nnk4Ion8_8zbzLQr9f2DoHkz8_zPJUvqNeCbWTq9o6N7QOGGbuTEmoxLvVd61PQ_lo_rFNHUQXCB5Y6NuHTKBaoktibPsh3IdsqnYFa2KnOFb-4g-VmXPL4menQVdsOvNPBV5IA6S6GAer6yvLDv3lm5O8atVHvBeTJkpHOpWCyLlSiUz1zp_z-oSwcx_DBU-TdT4RHzdkhUq87fqtnjSeo-Kfm8t71f2VYrFRPS-yPvcrU4jHeV2PSRZNZnyvQDPRll4jIhaztmR-39y9DcOxZEe51cBhdSzjwgcDw-6-KiVZwcY8M1T0PTwGPqxh5vO7P7qwjYhoBclaRAxmmlPt2mjTXo5zyhAh3K_X_X2s2EPhrVwuNFKvI4omEqUxJ7Ehl9hsHQSdIw-P8xMr-lIGneL53k_VtDxExpZwgkIbOwqc9PGl1jVAxie_SdftGiTHpZhGPiVDZ5xUfcdYpNwrrLzjCQjlbaVNvponxSM0_beeiD5BzTlA3vmDdLl_T8snHHPACYsfAZVjy8oRpyqUFyuHAnDAwv8TsXm6KFLLlaw3Xsf-UyVbn_lOLM7t2T6HTSL6t3WQGlTsT0m4Sest3rNWLuwPEUl5r-jJEhzfsTjAb3_1xl8aDXzXyOT7LOihFOjpabM")
-                .setApiEndpoint("http://10.0.0.176/api/v1")
-                .build();
+//        SnipeAPI api = new SnipeAPIBuilder()
+//                .setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWQxYTFkNDhkOWU0YTIzYzlmMWZkZjAxNDdkZjIxZmVjNzlmNmJhNTg4MmViZTc3ZDkyMTM5MmQ0ZDc1ODU1MjcyZTc3ZjE1M2Q0MWZiODQiLCJpYXQiOjE3NDM0MzY0OTYuNTU5OTgzLCJuYmYiOjE3NDM0MzY0OTYuNTU5OTg2LCJleHAiOjIyMTY4MjIwOTYuNTUzOTU5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.QwttmsDtOEzN1Kq2jiXpgxKBQ4tA1cEwDcHi20Jzx0pRJZsnRB1FjDE4hDXDY6N1OsOt8XxuCTvRp87t7Brhu1BDgt--toN3nuGhiZzCjzkR4SWCY8vJSei1Z1UdQxJKOoZRZFkrNw_I0PkGb8PjaEsSMs9fDhiYKl-7Y0tVU6W39liA_dZxLg9QiwR8jhHiZOUGj6z0xqluNSGyxQweNMJp9ECFPe837SqyHX7RSlfnFt1GHP0SEx8jfqVoZiYLuEL5FL4JPcBvHwF1Ey8rDzTpbMwIYi8UgIAFR6evNxqBCjIgw58aGcY8eodKWjMe-j5-4E-m78h0WzYZTBJcN9AUYmUNtyFgvBWIpgSjxGlT5M64112sTFk6xS6qumWQQjaxeNVnNwbzqz9Za-kfYl9i4IR1U4C5JSp11NzY5ZCEWiTfVYOQYKb3bt4J8yEQtjccWUZ4Na-bcr02fW6JWzhczpOU_jaIy88uZYVKYw7R73QmZa2qxQm_gBTPeEmYYgaXX1VP-e4HX9Y9BxM4dbYRWqqX71MfM7vU4Q6fjrKmplqxzJZ_kRY5als5ZP_8CSBVYXSS6oDydsIYK9Ywpb2yokc7Rt8YplkreObHpQS6Qd6pC7ZhrhIUMocIHWosJVQTk7ZM57GQgOLcgpdWcvaZuwWU2aVZUZSodhaFAuo")
+//                .setApiEndpoint("http://10.0.0.176/api/v1")
+//                .build();
 
         // Get all assets
-        List<Asset> assets = api.getAssetList(Sort.ASSET_TAG, Order.ASCENDING).join();
+        //List<Asset> assets = api.getAssetList(Sort.ASSET_TAG, Order.ASCENDING).join();
 
-        // Loop through list of assets
-        for (Asset asset : assets) {
-            int assetID = asset.getId().orElse(-1);
+//        // Loop through list of assets
+//        for (Asset asset : assets) {
+//            int assetID = asset.getId().orElse(-1);
+//
+//            logger.info(assetID);
+//
+//            Asset asset2 = api.getAssetByID(String.valueOf(assetID)).join();
+//
+//            GenericField assignedTo = asset2.getAssignedTo().orElse(null);
+//
+//            if (assignedTo != null) {
+//                logger.fatal(assignedTo.getName());
+//            }
+//            else {
+//                logger.fatal("FUCK");
+//            }
+//            Thread.sleep(1500);
+//        }
 
-            logger.info(assetID);
+        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWQxYTFkNDhkOWU0YTIzYzlmMWZkZjAxNDdkZjIxZmVjNzlmNmJhNTg4MmViZTc3ZDkyMTM5MmQ0ZDc1ODU1MjcyZTc3ZjE1M2Q0MWZiODQiLCJpYXQiOjE3NDM0MzY0OTYuNTU5OTgzLCJuYmYiOjE3NDM0MzY0OTYuNTU5OTg2LCJleHAiOjIyMTY4MjIwOTYuNTUzOTU5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.QwttmsDtOEzN1Kq2jiXpgxKBQ4tA1cEwDcHi20Jzx0pRJZsnRB1FjDE4hDXDY6N1OsOt8XxuCTvRp87t7Brhu1BDgt--toN3nuGhiZzCjzkR4SWCY8vJSei1Z1UdQxJKOoZRZFkrNw_I0PkGb8PjaEsSMs9fDhiYKl-7Y0tVU6W39liA_dZxLg9QiwR8jhHiZOUGj6z0xqluNSGyxQweNMJp9ECFPe837SqyHX7RSlfnFt1GHP0SEx8jfqVoZiYLuEL5FL4JPcBvHwF1Ey8rDzTpbMwIYi8UgIAFR6evNxqBCjIgw58aGcY8eodKWjMe-j5-4E-m78h0WzYZTBJcN9AUYmUNtyFgvBWIpgSjxGlT5M64112sTFk6xS6qumWQQjaxeNVnNwbzqz9Za-kfYl9i4IR1U4C5JSp11NzY5ZCEWiTfVYOQYKb3bt4J8yEQtjccWUZ4Na-bcr02fW6JWzhczpOU_jaIy88uZYVKYw7R73QmZa2qxQm_gBTPeEmYYgaXX1VP-e4HX9Y9BxM4dbYRWqqX71MfM7vU4Q6fjrKmplqxzJZ_kRY5als5ZP_8CSBVYXSS6oDydsIYK9Ywpb2yokc7Rt8YplkreObHpQS6Qd6pC7ZhrhIUMocIHWosJVQTk7ZM57GQgOLcgpdWcvaZuwWU2aVZUZSodhaFAuo";
+        String apiEndpoint = "http://10.0.0.176/api/v1";
+        SnipeClient api = new SnipeClient(token, apiEndpoint);
+        AssetModule assetModule = api.getAssets();
 
-            Asset asset2 = api.getAssetByID(String.valueOf(assetID)).join();
+        Asset asset = assetModule.fetchAssetByTag("CORPIT08").join();
+        logger.info(asset.getAge().orElse("FUCK"));
 
-            GenericField assignedTo = asset2.getAssignedTo().orElse(null);
-
-            if (assignedTo != null) {
-                logger.fatal(assignedTo.getName());
-            }
-            else {
-                logger.fatal("FUCK");
-            }
-            Thread.sleep(1500);
-        }
+        byte[] labels = assetModule.generateLabels(List.of("CORPIT08")).join();
+        logger.info(new String(labels));
 
         //logger.info(asset.getCustomFields().orElse(null).getFields().toString());
     }

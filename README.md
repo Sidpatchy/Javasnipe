@@ -1,6 +1,6 @@
 # Javasnipe
 ![Build Status](https://img.shields.io/teamcity/build/s/Javasnipe_Build?server=https%3A%2F%2Fci.sidpatchy.com&style=flat-square)
- ![GitHub License](https://img.shields.io/github/license/sidpatchy/Javasnipe?style=flat-square&label=License) ![Static Badge](https://img.shields.io/badge/17+-0?style=flat-square&label=Java%20Compatibility) ![Static Badge](https://img.shields.io/badge/6.3.4-0?style=flat-square&label=Snipe-IT%20Version)
+ ![GitHub License](https://img.shields.io/github/license/sidpatchy/Javasnipe?style=flat-square&label=License) ![Static Badge](https://img.shields.io/badge/17+-0?style=flat-square&label=Java%20Compatibility) ![Static Badge](https://img.shields.io/badge/7.1.15-0?style=flat-square&label=Snipe-IT%20Version)
 
 A modern and easy-to-use library for interacting with the Snipe-IT API written in Java.
 

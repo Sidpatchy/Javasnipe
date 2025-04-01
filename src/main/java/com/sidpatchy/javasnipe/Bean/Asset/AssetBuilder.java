@@ -132,12 +132,12 @@ public class AssetBuilder {
         return this;
     }
 
-    public AssetBuilder setWarrantyMonths(Integer warrantyMonths) {
+    public AssetBuilder setWarrantyMonths(String warrantyMonths) {
         asset.setWarrantyMonths(warrantyMonths);
         return this;
     }
 
-    public AssetBuilder setWarrantyExpires(String warrantyExpires) {
+    public AssetBuilder setWarrantyExpires(Date warrantyExpires) {
         asset.setWarrantyExpires(warrantyExpires);
         return this;
     }

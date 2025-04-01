@@ -9,14 +9,14 @@ public class SnipeClient {
 
     private final AssetModule assetModule;
     private final CustomFieldModule customFieldModule;
-    private final LicenseModule licenseModule;
+    //private final LicenseModule licenseModule;
 
     public SnipeClient(String token, String apiEndpoint) {
         HttpConnectionManager connectionManager = new HttpConnectionManager(token, apiEndpoint);
 
         this.assetModule = new AssetModule(connectionManager);
         this.customFieldModule = new CustomFieldModule(connectionManager);
-        this.licenseModule = new LicenseModule(connectionManager);
+        //this.licenseModule = new LicenseModule(connectionManager);
     }
 
     public AssetModule getAssets() {
@@ -27,9 +27,9 @@ public class SnipeClient {
         return customFieldModule;
     }
 
-    public LicenseModule getLicenses() {
-        return licenseModule;
-    }
+    //public LicenseModule getLicenses() {
+    //    return licenseModule;
+    //}
 
     // Fluent method to start the API
     public SnipeClient connect() {

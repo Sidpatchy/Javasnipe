@@ -46,9 +46,9 @@ public class Asset {
     @SerializedName("assigned_to")
     private GenericField assignedTo;
     @SerializedName("warranty_months")
-    private Integer warrantyMonths;
+    private String warrantyMonths;
     @SerializedName("warranty_expires")
-    private String warrantyExpires;
+    private Date warrantyExpires;
     @SerializedName("created_at")
     private Date createdAt;
     @SerializedName("updated_at")
@@ -505,7 +505,7 @@ public class Asset {
      * @return An {@link Optional} value containing the number of warranty months. If the warranty months are not available,
      *         an {@link Optional#empty()} is returned.
      */
-    public Optional<Integer> getWarrantyMonths() {
+    public Optional<String> getWarrantyMonths() {
         return Optional.of(warrantyMonths);
     }
 
@@ -514,7 +514,7 @@ public class Asset {
      *
      * @param warrantyMonths the warranty duration in months
      */
-    public void setWarrantyMonths(Integer warrantyMonths) {
+    public void setWarrantyMonths(String warrantyMonths) {
         this.warrantyMonths = warrantyMonths;
     }
 
@@ -523,7 +523,7 @@ public class Asset {
      *
      * @return an {@link Optional} containing the warranty expiration date, or an {@link Optional#empty()} if no expiration date is set
      */
-    public Optional<String> getWarrantyExpires() {
+    public Optional<Date> getWarrantyExpires() {
         return Optional.ofNullable(warrantyExpires);
     }
 
@@ -532,7 +532,7 @@ public class Asset {
      *
      * @param warrantyExpires the warranty expiration date to be set
      */
-    public void setWarrantyExpires(String warrantyExpires) {
+    public void setWarrantyExpires(Date warrantyExpires) {
         this.warrantyExpires = warrantyExpires;
     }
 

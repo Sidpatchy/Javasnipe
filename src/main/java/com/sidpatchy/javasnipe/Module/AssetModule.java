@@ -1,10 +1,13 @@
 package com.sidpatchy.javasnipe.Module;
 
+import com.google.gson.JsonArray;
 import com.sidpatchy.javasnipe.Bean.Asset.Asset;
 import com.sidpatchy.javasnipe.IO.HttpConnectionManager;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -128,6 +131,22 @@ public class AssetModule {
         String endpoint = "/hardware/audit/overdue";
         TypeToken<List<Asset>> type = new TypeToken<>() {};
         return connectionManager.fetchAllPages(endpoint, type.getType(), 500, 0);
+    }
+
+    /**
+     * Generates labels for the specified asset tags.
+     *
+     * @param assetTags A list of asset tags for which labels need to be generated.
+     * @return A CompletableFuture that resolves to a JsonObject containing the generated labels.
+     */
+    public CompletableFuture<byte[]> generateLabels(List<String> assetTags) {
+        String endpoint = "/hardware/labels";
+        JsonObject payload = new JsonObject();
+        JsonArray tagsArray = new JsonArray();
+        assetTags.forEach(tagsArray::add);
+        payload.add("asset_tags", tagsArray);
+
+        return connectionManager.post(endpoint, payload, byte[].class);
     }
 }
 

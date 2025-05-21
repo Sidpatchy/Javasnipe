@@ -2,17 +2,21 @@ package com.sidpatchy.javasnipe.Module;
 
 import com.google.gson.JsonArray;
 import com.sidpatchy.javasnipe.Bean.Asset.Asset;
+import com.sidpatchy.javasnipe.Bean.Asset.Assets;
 import com.sidpatchy.javasnipe.IO.HttpConnectionManager;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.sidpatchy.javasnipe.SnipeClient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class AssetModule {
-
+    private static final Logger logger = LogManager.getLogger(AssetModule.class);
     private final HttpConnectionManager connectionManager;
 
     public AssetModule(HttpConnectionManager connectionManager) {
@@ -28,8 +32,29 @@ public class AssetModule {
      */
     public CompletableFuture<List<Asset>> fetchAssets(int limit, int offset) {
         String endpoint = "/hardware";
-        TypeToken<List<Asset>> type = new TypeToken<>() {};
-        return connectionManager.fetchAllPages(endpoint, type.getType(), limit, offset);
+        logger.debug("Sending request to: {}{}", connectionManager.getApiEndpoint(), endpoint);
+
+        return connectionManager.get(endpoint, Assets.class)
+                .thenApply(result -> {
+                    logger.debug("Result received: {}", result == null ? "null" : result.getClass().getName());
+
+                    if (result == null) {
+                        logger.warn("Result is null!");
+                        return null;
+                    }
+
+                    Assets assets = (Assets) result;
+                    logger.debug("Assets object: {}", assets);
+
+                    List<Asset> assetList = assets.getRows();
+                    logger.debug("Asset list: {}", assetList == null ? "null" : "contains " + assetList.size() + " items");
+
+                    return assetList;
+                })
+                .exceptionally(e -> {
+                    logger.error("Error in fetchAssets: {}", e.getMessage(), e);
+                    return null;
+                });
     }
 
     /**
@@ -89,7 +114,7 @@ public class AssetModule {
     }
 
     /**
-     * Partially updates an asset.
+     * Partially updates an asset. This is mostly unsupported by Javasnipe due to it being easier to use updateAsset().
      *
      * @param assetId      The ID of the asset to update.
      * @param updateFields The fields to update.

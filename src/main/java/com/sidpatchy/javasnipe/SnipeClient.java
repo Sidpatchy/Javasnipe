@@ -4,8 +4,11 @@ import com.sidpatchy.javasnipe.IO.HttpConnectionManager;
 import com.sidpatchy.javasnipe.Module.AssetModule;
 import com.sidpatchy.javasnipe.Module.CustomFieldModule;
 import com.sidpatchy.javasnipe.Module.LicenseModule;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SnipeClient {
+    private static final Logger logger = LogManager.getLogger(SnipeClient.class);
 
     private final AssetModule assetModule;
     private final CustomFieldModule customFieldModule;
@@ -33,7 +36,6 @@ public class SnipeClient {
 
     // Fluent method to start the API
     public SnipeClient connect() {
-        // Initialize connections or perform any startup logic here
         return this;
     }
 

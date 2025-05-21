@@ -302,5 +302,9 @@ public class HttpConnectionManager {
             }
         });
     }
+
+    public String getApiEndpoint() {
+        return apiEndpoint;
+    }
 }
 

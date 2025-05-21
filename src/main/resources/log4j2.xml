@@ -2,11 +2,17 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss} [%highlight{%-5level}] - %msg%n%throwable{short.lineNumber} %ex" />
+            <PatternLayout pattern="%d{HH:mm:ss} [%highlight{%-5level}] %logger{1} - %msg%n%throwable{short.lineNumber}" />
         </Console>
     </Appenders>
     <Loggers>
-        <Root level="INFO" additivity="false">
+        <!-- Library-specific logger -->
+        <Logger name="com.sidpatchy.javasnipe" level="WARN" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+
+        <!-- Root logger (for everything else) -->
+        <Root level="INFO">
             <AppenderRef ref="console" />
         </Root>
     </Loggers>
